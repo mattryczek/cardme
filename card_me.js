@@ -1,6 +1,16 @@
 //Disable FP auto refresh so we can inject our own
 quickEditUpdateInProgress = true;
 
+//Remove pointless? hidden divs
+document.getElementById("lightbox-FPCommonDialog").remove();
+
+for(let i = 20; i < 50; i++){
+    let trash = document.getElementById("ext-gen"+i);
+    if(trash){
+        trash.remove();
+    }
+}
+
 
 var link = document.createElement("link");
 
