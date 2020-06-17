@@ -2,11 +2,19 @@
 quickEditUpdateInProgress = true;
 
 //Remove pointless? hidden divs
-document.getElementById("lightbox-FPCommonDialog").remove();
+let trash = document.body.children;
+
+while(trash.length > 1){
+    if(trash[0].id != "ContentWrapper"){
+        trash[0].remove();
+    }else{
+        trash[1].remove();
+    }
+}
 
 for(let i = 20; i < 50; i++){
     let trash = document.getElementById("ext-gen"+i);
-    if(trash){
+    if(trash != null){
         trash.remove();
     }
 }
@@ -191,6 +199,8 @@ function create_container(size){
         
         container.appendChild(row);
     }
+    
+    container.style.maxWidth = "5000px";
 
     fragment.appendChild(container);
     
