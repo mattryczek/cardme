@@ -21,7 +21,7 @@ async function clean_up(){
 }
 
 function inject_bootstrap(){
-    var link = document.createElement("link");
+    let link = document.createElement("link");
 
     link.type = "text/css";
     link.rel = "stylesheet";
@@ -29,6 +29,33 @@ function inject_bootstrap(){
     link.crossorigin="anonymous";
 
     document.head.appendChild(link);
+
+    let jquery = document.createElement("script");
+
+    jquery.type = 'text/javascript';
+    jquery.async = true;
+    jquery.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    jquery.crossorigin="anonymous";
+
+    document.head.appendChild(jquery);
+
+    let popper = document.createElement("script");
+
+    popper.type = 'text/javascript';
+    popper.async = true;
+    popper.src = "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js";
+    popper.crossorigin="anonymous";
+
+    document.head.appendChild(popper);
+
+    let bootjs = document.createElement("script");
+
+    bootjs.type = 'text/javascript';
+    bootjs.async = true;
+    bootjs.src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
+    bootjs.crossorigin="anonymous";
+
+    document.head.appendChild(bootjs);
 }
 
 function transform(){
