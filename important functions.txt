@@ -1,0 +1,9 @@
+Ext.get('desc-body').load({url: '/MRcgi/MRAjaxShowDescriptions.pl?USER=mrr958&MRP=1981f8a33fabf1dec06076c4c4a6e19a4' + '&MR=' + 1016289 + '&PROJECTID=' + 1});
+
+document.getElementById("desc-body").firstElementChild.textContent
+
+
+
+'USER='                   + escape(document.quickSearch.USER.value)      + '&' +
+                 'PROJECTID='              + escape(document.quickSearch.PROJECTID.value) + '&' +
+                 'MRP='                    + escape(document.quickSearch.MRP.value);
