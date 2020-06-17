@@ -118,7 +118,7 @@ function create_card(){
     let num_badge = document.createElement('span');
     let ticket_num = get_ticket_num(curr_ticket);
     num_badge.textContent = ticket_num;
-    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-left mr-1 my-1";
+    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right";
     
     let status_badge = document.createElement('span');
     status_badge.textContent = get_status(curr_ticket);
@@ -128,11 +128,11 @@ function create_card(){
     let support = dept_support(curr_ticket);
     if(support != "none")
     dept_badge.textContent = support;
-    dept_badge.classList = "badge badge-info float-right";
+    dept_badge.classList = "badge badge-info float-left mr-1 my-1";
     
     let badge_div = document.createElement('div');
-    badge_div.appendChild(num_badge);
     badge_div.appendChild(status_badge);
+    badge_div.appendChild(dept_badge);
 
     let card_header = document.createElement('h5');
     card_header.textContent = get_title(curr_ticket);
@@ -151,7 +151,7 @@ function create_card(){
     card_body.appendChild(card_text);
     
     card_footer.appendChild(last_edit);
-    card_footer.appendChild(dept_badge);
+    card_footer.appendChild(num_badge);
     
     card.appendChild(card_header);
     card.appendChild(card_body);
