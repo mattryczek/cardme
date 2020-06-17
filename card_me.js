@@ -1,25 +1,23 @@
 //Disable FP auto refresh so we can inject our own
 quickEditUpdateInProgress = true;
 
-//Remove pointless? hidden divs
-let trash = document.body.children;
-
-while(trash.length > 1){
-    if(trash[0].id != "ContentWrapper"){
-        trash[0].remove();
-    }else{
-        trash[1].remove();
-    }
-}
-
 inject_bootstrap();
+clean_up();
+
 var tickets = document.getElementsByClassName("x-grid3-row");
 transform();
 
-function transform(){
-    document.getElementById("grid-ct").style.display = "none";
+//Remove pointless? hidden divs
+async function clean_up(){
+  let trash = document.body.children;
 
-    document.getElementById("Main").appendChild(create_container(tickets.length));
+  while(trash.length > 1){
+      if(trash[0].id != "ContentWrapper"){
+          trash[0].remove();
+      }else{
+          trash[1].remove();
+      }
+  }
 }
 
 function inject_bootstrap(){
@@ -31,6 +29,12 @@ function inject_bootstrap(){
     link.crossorigin="anonymous";
 
     document.head.appendChild(link);
+}
+
+function transform(){
+    document.getElementById("grid-ct").style.display = "none";
+
+    document.getElementById("Main").appendChild(create_container(tickets.length));
 }
 
 function get_ticket_num(ticket){
