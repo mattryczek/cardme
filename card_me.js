@@ -11,21 +11,26 @@ for(let i = 20; i < 50; i++){
     }
 }
 
-
-var link = document.createElement("link");
-
-link.type = "text/css";
-link.rel = "stylesheet";
-link.href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
-link.crossorigin="anonymous";
-
-document.head.appendChild(link);
-
-document.getElementById("grid-ct").style.display = "none";
-
+inject_bootstrap();
 var tickets = document.getElementsByClassName("x-grid3-row");
+transform();
 
-document.getElementById("Main").appendChild(create_container(tickets.length));
+function transform(){
+    document.getElementById("grid-ct").style.display = "none";
+
+    document.getElementById("Main").appendChild(create_container(tickets.length));
+}
+
+function inject_bootstrap(){
+    var link = document.createElement("link");
+
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
+    link.crossorigin="anonymous";
+
+    document.head.appendChild(link);
+}
 
 function get_ticket_num(ticket){
     return ticket.rows[0].cells[4].firstChild.firstChild.textContent;
