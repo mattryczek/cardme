@@ -35,6 +35,16 @@ function inject_bootstrap(){
     jquery.type = 'text/javascript';
     jquery.async = true;
     jquery.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    jquery.onload = function() {
+      let bootjs = document.createElement("script");
+
+      bootjs.type = 'text/javascript';
+      bootjs.async = false;
+      bootjs.src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
+      bootjs.crossorigin="anonymous";
+
+      document.head.appendChild(bootjs);
+    }
     jquery.crossorigin="anonymous";
 
     document.head.appendChild(jquery);
@@ -47,15 +57,6 @@ function inject_bootstrap(){
     popper.crossorigin="anonymous";
 
     document.head.appendChild(popper);
-
-    let bootjs = document.createElement("script");
-
-    bootjs.type = 'text/javascript';
-    bootjs.async = true;
-    bootjs.src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
-    bootjs.crossorigin="anonymous";
-
-    document.head.appendChild(bootjs);
 }
 
 function transform(){
