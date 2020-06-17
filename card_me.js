@@ -36,6 +36,7 @@ function inject_bootstrap(){
     jquery.async = true;
     jquery.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
     jquery.onload = function() {
+      //jQuery needs to load first; only load bootjs once jQuery is done.
       let bootjs = document.createElement("script");
 
       bootjs.type = 'text/javascript';
@@ -134,6 +135,8 @@ function badge_type(ticket){
 
 function create_card(){
     let curr_ticket = tickets[0].firstChild;
+    let ticket_num = get_ticket_num(curr_ticket);
+
 
     let card = document.createElement('div');
     card.classList = "card";
@@ -149,7 +152,6 @@ function create_card(){
     card_text.textContent = get_description(curr_ticket);
 
     let num_badge = document.createElement('span');
-    let ticket_num = get_ticket_num(curr_ticket);
     num_badge.textContent = ticket_num;
     num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right";
 
@@ -167,10 +169,24 @@ function create_card(){
     badge_div.appendChild(status_badge);
     badge_div.appendChild(dept_badge);
 
+    let edit_button = document.createElement('button');
+    edit_button.classList = "btn btn-primary mr-2";
+    edit_button.textContent = "Edit";
+    edit_button.setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
+
+    let details_button = document.createElement('button');
+    details_button.classList = "btn btn-outline-secondary mr-2";
+    details_button.textContent = "Details";
+    details_button.setAttribute("onclick", "goToDetails(" + ticket_num + ", 1);");
+
+    let button_div = document.createElement('div');
+    button_div.classList = "card-body";
+    button_div.appendChild(edit_button);
+    button_div.appendChild(details_button);
+
     let card_header = document.createElement('h5');
     card_header.textContent = get_title(curr_ticket);
     card_header.classList = "card-header";
-    card_header.setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
 
     let card_footer = document.createElement('div');
     card_footer.classList = "card-footer";
@@ -178,6 +194,9 @@ function create_card(){
     let last_edit = document.createElement('small');
     last_edit.classList = "text-muted";
     last_edit.textContent = "Last edit " + get_last_edit(curr_ticket);
+
+    button_div.appendChild(edit_button);
+    button_div.appendChild(details_button);
 
     card_header.appendChild(badge_div);
 
@@ -188,6 +207,7 @@ function create_card(){
 
     card.appendChild(card_header);
     card.appendChild(card_body);
+    card.appendChild(button_div);
     card.appendChild(card_footer);
 
     tickets[0].classList = "parsed";
