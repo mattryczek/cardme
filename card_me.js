@@ -18,6 +18,9 @@ async function clean_up(){
           trash[1].remove();
       }
   }
+  document.getElementById("footer").remove();
+  document.getElementById("PopUpAlertText").remove();
+
 }
 
 function inject_bootstrap(){
