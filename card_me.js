@@ -19,7 +19,7 @@ async function clean_up(){
       }
   }
   document.getElementById("footer").remove();
-  document.getElementById("PopUpAlertText").remove();
+  document.getElementById("PopUpAlert").remove();
 
 }
 
@@ -164,9 +164,10 @@ function create_card(){
 
     let dept_badge = document.createElement('span');
     let support = dept_support(curr_ticket);
-    if(support != "none")
-    dept_badge.textContent = support;
-    dept_badge.classList = "badge badge-info float-left mr-1 my-1";
+    if(support != "none"){
+      dept_badge.textContent = support;
+      dept_badge.classList = "badge badge-info float-left mr-1 my-1";
+    }
 
     let badge_div = document.createElement('div');
     badge_div.appendChild(status_badge);
