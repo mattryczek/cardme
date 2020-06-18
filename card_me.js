@@ -265,11 +265,21 @@ function create_card(){
     return card;
 }
 
+function create_modal(){
+  let modal_shim = document.createElement('div');
+
+  modal_shim.innerHTML = '<div class="modal fade" id="testmodal" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> </div> </div> </div> </div>';
+
+  let modal = modal_shim.firstChild;
+
+  return modal;
+}
+
 function create_container(size){
     let fragment = document.createDocumentFragment();
 
     let container = document.createElement('div');
-    container.classList = "container my-3 w-100";
+    container.classList = "container my-4";
     container.id = "cards";
 
     let spare = size % 3;
