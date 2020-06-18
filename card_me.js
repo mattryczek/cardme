@@ -66,7 +66,20 @@ function inject_bootstrap(){
 function transform(){
     document.getElementById("grid-ct").style.display = "none";
 
-    document.getElementById("Main").appendChild(create_container(tickets.length));
+    if(document.getElementsByClassName("x-grid-empty").length == 1){
+        no_tickets();
+    } else {
+        document.getElementById("Main").appendChild(create_container(tickets.length));
+    }
+}
+
+function no_tickets(){
+  let parent = document.getElementById("grid-ct").parentNode;
+  document.getElementById("grid-ct").remove();
+
+  let no_tickets = create_banner("You do not have any tickets assigned to you!", "alert-success");
+
+  parent.appendChild(no_tickets);
 }
 
 function highlight(card){
@@ -112,6 +125,10 @@ function get_last_edit(ticket){
     return ticket.rows[0].cells[7].firstChild.textContent;
 }
 
+function get_priority(ticket){
+    return ticket.rows[0].cells[10].firstChild.textContent;
+}
+
 function dept_support(ticket){
     let support = ticket.rows[0].cells[9].firstChild.textContent;
 
@@ -120,17 +137,6 @@ function dept_support(ticket){
     }
 
     return support;
-}
-
-function get_priority(ticket){
-    return ticket.rows[0].cells[10].firstChild.textContent;
-}
-
-function create_row(){
-    let row = document.createElement('div');
-    row.classList = "card-deck mb-3";
-
-    return row;
 }
 
 function badge_type(ticket){
@@ -157,6 +163,21 @@ function badge_type(ticket){
     }
 
     return badge;
+}
+
+function create_banner(text, type){
+  let banner = document.createElement('div');
+  banner.classList = "m-4 alert " + type;
+  banner.textContent = text;
+
+  return banner;
+}
+
+function create_row(){
+    let row = document.createElement('div');
+    row.classList = "card-deck mb-3";
+
+    return row;
 }
 
 function create_card(){
