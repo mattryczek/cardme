@@ -79,6 +79,19 @@ function lowlight(card){
     card.classList.add("shadow-sm");
 }
 
+async function get_description(ticket_num){
+  let mrp = document.quickSearch.MRP.value;
+  let usr = document.quickSearch.USER.value;
+  Ext.get('desc-body')
+     .load({url: '/MRcgi/MRAjaxShowDescriptions.pl?USER=' + usr + '&MRP=' + mrp + '&MR=' + ticket_num + '&PROJECTID=1',
+            callback: function(el, success, r) {
+              if(success){
+                console.log(document.getElementById("desc-body").firstElementChild.textContent);
+              }
+            }
+   });
+}
+
 function get_ticket_num(ticket){
     return ticket.rows[0].cells[4].firstChild.firstChild.textContent;
 }
