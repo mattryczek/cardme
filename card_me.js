@@ -69,6 +69,16 @@ function transform(){
     document.getElementById("Main").appendChild(create_container(tickets.length));
 }
 
+function highlight(card){
+    card.classList.remove("shadow-sm");
+    card.classList.add("shadow");
+}
+
+function lowlight(card){
+    card.classList.remove("shadow");
+    card.classList.add("shadow-sm");
+}
+
 function get_ticket_num(ticket){
     return ticket.rows[0].cells[4].firstChild.firstChild.textContent;
 }
@@ -142,10 +152,12 @@ function create_card(){
 
 
     let card = document.createElement('div');
-    card.classList = "card";
+    card.classList = "card shadow-sm";
     if(get_priority(curr_ticket) == "I-CRITICAL"){
         card.classList.add("border-danger")
     }
+    card.setAttribute("onmouseover", "highlight(this)");
+    card.setAttribute("onmouseout" , "lowlight(this)");
 
     let card_body = document.createElement('div');
     card_body.classList = "card-body";
@@ -174,7 +186,7 @@ function create_card(){
     badge_div.appendChild(dept_badge);
 
     let edit_button = document.createElement('button');
-    edit_button.classList = "btn btn-primary mr-2";
+    edit_button.classList = "btn btn-outline-primary mr-2";
     edit_button.textContent = "Edit";
     edit_button.setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
 
