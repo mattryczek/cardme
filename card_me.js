@@ -170,7 +170,7 @@ function badge_type(ticket){
 
     switch(priority){
         case "SR-MED":
-        case "I-MED":
+        case "I-MEDIUM":
             badge = badges.MEDIUM;
             break;
         case "SR-HIGH":
