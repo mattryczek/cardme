@@ -188,6 +188,15 @@ function badge_type(ticket){
     return badge;
 }
 
+function copy_ticket_num(badge){
+  let copyText = document.createElement('input');
+  copyText.value = badge.textContent;
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+
 function create_banner(text, type){
   let banner = document.createElement('div');
   banner.classList = "m-4 alert " + type;
@@ -225,7 +234,8 @@ function create_card(){
 
     let num_badge = document.createElement('span');
     num_badge.textContent = ticket_num;
-    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right user-select-all";
+    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right user-select-none";
+    num_badge.setAttribute("onclick", "copy_ticket_num(this)");
 
     let status_badge = document.createElement('span');
     status_badge.textContent = get_status(curr_ticket);
