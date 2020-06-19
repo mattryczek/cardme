@@ -71,6 +71,8 @@ function transform(){
     } else {
         document.getElementById("Main").appendChild(create_container(tickets.length));
     }
+
+    create_modal();
 }
 
 function no_tickets(){
@@ -224,6 +226,12 @@ function create_card(){
     edit_button.textContent = "Edit";
     edit_button.setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
 
+    let modal_button = document.createElement('button');
+    modal_button.classList = "btn btn-outline-secondary mr-2";
+    modal_button.textContent = "Full Description";
+    modal_button.setAttribute("data-toggle", "modal");
+    modal_button.setAttribute("data-target", "#desc_modal");
+
     let details_button = document.createElement('button');
     details_button.classList = "btn btn-outline-secondary mr-2";
     details_button.textContent = "Details";
@@ -247,6 +255,7 @@ function create_card(){
 
     button_div.appendChild(edit_button);
     button_div.appendChild(details_button);
+    button_div.appendChild(modal_button);
 
     card_header.appendChild(badge_div);
 
@@ -268,11 +277,11 @@ function create_card(){
 function create_modal(){
   let modal_shim = document.createElement('div');
 
-  modal_shim.innerHTML = '<div class="modal fade" id="testmodal" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> </div> </div> </div> </div>';
+  modal_shim.innerHTML = '<div class="modal fade" id="desc_modal" tabindex="-1" role="dialog"> <div class="modal-dialog modal-dialog-centered"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> </div> </div> </div> </div>';
 
   let modal = modal_shim.firstChild;
 
-  return modal;
+  document.body.appendChild(modal);
 }
 
 function create_container(size){
@@ -308,6 +317,7 @@ function create_container(size){
     container.style.maxWidth = "5000px";
 
     fragment.appendChild(container);
+
 
     return fragment;
 }
