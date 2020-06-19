@@ -76,11 +76,20 @@ function transform(){
 
 function no_tickets(){
   let parent = document.getElementById("grid-ct").parentNode;
+
+  let banner;
+
+  switch (document.getElementsByClassName("x-grid-empty")[0].textContent){
+    case "There were no matches to your query.":
+      banner = create_banner("There were no matches to your query", "alert-danger");
+      break;
+    case "You do not have any Issues assigned to you.":
+      banner = create_banner("Congratulations! Your personal queue is empty!", "alert-success");
+      break;
+  }
+
   document.getElementById("grid-ct").remove();
-
-  let no_tickets = create_banner("You do not have any tickets assigned to you!", "alert-success");
-
-  parent.appendChild(no_tickets);
+  parent.appendChild(banner);
 }
 
 function highlight(card){
