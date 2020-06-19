@@ -3,8 +3,7 @@ quickEditUpdateInProgress = true;
 
 inject_bootstrap();
 clean_up();
-
-var tickets = document.getElementsByClassName("x-grid3-row");
+let tickets = document.getElementsByClassName("x-grid3-row");
 transform();
 
 //Remove pointless? hidden divs
@@ -94,14 +93,28 @@ function lowlight(card){
     card.classList.add("shadow-sm");
 }
 
-async function get_description(ticket_num){
+async function get_full_desc(button, ticket_num){
+  let loading = document.createElement('span');
+  loading.classList = "spinner-border spinner-border-sm ml-2";
+
+  button.appendChild(loading);
+
   let mrp = document.quickSearch.MRP.value;
   let usr = document.quickSearch.USER.value;
   Ext.get('desc-body')
      .load({url: '/MRcgi/MRAjaxShowDescriptions.pl?USER=' + usr + '&MRP=' + mrp + '&MR=' + ticket_num + '&PROJECTID=1',
             callback: function(el, success, r) {
               if(success){
-                console.log(document.getElementById("desc-body").firstElementChild.textContent);
+                let desc = document.getElementById("desc-body").firstElementChild.innerHTML;
+                document.getElementById("descm_title").textContent = ticket_num;
+                document.getElementById("descm_body").innerHTML = desc;
+                document.getElementById("descm_edit").setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
+
+                $("#desc_modal").modal('show');
+
+                button.lastChild.remove();
+
+                console.log("Fetched " + ticket_num);
               }
             }
    });
@@ -229,8 +242,7 @@ function create_card(){
     let modal_button = document.createElement('button');
     modal_button.classList = "btn btn-outline-secondary mr-2";
     modal_button.textContent = "Full Description";
-    modal_button.setAttribute("data-toggle", "modal");
-    modal_button.setAttribute("data-target", "#desc_modal");
+    modal_button.setAttribute("onclick", "get_full_desc(this, "+ ticket_num + ")");
 
     let details_button = document.createElement('button');
     details_button.classList = "btn btn-outline-secondary mr-2";
@@ -277,7 +289,7 @@ function create_card(){
 function create_modal(){
   let modal_shim = document.createElement('div');
 
-  modal_shim.innerHTML = '<div class="modal fade" id="desc_modal" tabindex="-1" role="dialog"> <div class="modal-dialog modal-dialog-centered"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> </div> </div> </div> </div>';
+  modal_shim.innerHTML = '<div class="modal fade" id="desc_modal" tabindex="-1" role="dialog"> <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title" id="descm_title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center" id="descm_body"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary" id="descm_edit">Edit</button> </div> </div> </div> </div>';
 
   let modal = modal_shim.firstChild;
 
