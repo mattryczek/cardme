@@ -1,6 +1,3 @@
-//Disable FP auto refresh so we can inject our own
-quickEditUpdateInProgress = true;
-
 inject_bootstrap();
 clean_up();
 let tickets = document.getElementsByClassName("x-grid3-row");
@@ -8,6 +5,9 @@ transform();
 
 //Remove pointless? hidden divs
 async function clean_up(){
+  //Disable FP auto refresh so we can inject our own
+  quickEditUpdateInProgress = true;
+
   let trash = document.body.children;
 
   while(trash.length > 1){
@@ -19,6 +19,7 @@ async function clean_up(){
   }
   document.getElementById("footer").remove();
   document.getElementById("PopUpAlert").remove();
+  document.getElementById("checkback").remove();
 
   document.body.removeAttribute("onkeypress");
   document.body.removeAttribute("class");
