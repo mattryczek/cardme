@@ -217,7 +217,7 @@ function create_card(){
 
     let num_badge = document.createElement('span');
     num_badge.textContent = ticket_num;
-    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right";
+    num_badge.classList = "badge " + badge_type(curr_ticket) + " float-right user-select-all";
 
     let status_badge = document.createElement('span');
     status_badge.textContent = get_status(curr_ticket);
