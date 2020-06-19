@@ -101,13 +101,15 @@ async function get_full_desc(button, ticket_num){
 
   let mrp = document.quickSearch.MRP.value;
   let usr = document.quickSearch.USER.value;
+
   Ext.get('desc-body')
      .load({url: '/MRcgi/MRAjaxShowDescriptions.pl?USER=' + usr + '&MRP=' + mrp + '&MR=' + ticket_num + '&PROJECTID=1',
             callback: function(el, success, r) {
               if(success){
-                let desc = document.getElementById("desc-body").firstElementChild.innerHTML;
-                document.getElementById("descm_title").textContent = ticket_num;
-                document.getElementById("descm_body").innerHTML = desc;
+                let desc = document.getElementById("desc-body").firstElementChild;
+                document.getElementById("descm_title").textContent = desc.firstElementChild.textContent;
+                desc.firstElementChild.remove();
+                document.getElementById("descm_body").innerHTML = desc.innerHTML;
                 document.getElementById("descm_edit").setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
 
                 $("#desc_modal").modal('show');
@@ -250,7 +252,7 @@ function create_card(){
     details_button.setAttribute("onclick", "goToDetails(" + ticket_num + ", 1);");
 
     let button_div = document.createElement('div');
-    button_div.classList = "card-body";
+    button_div.classList = "card-text ml-2 my-2";
     button_div.appendChild(edit_button);
     button_div.appendChild(details_button);
 
@@ -289,7 +291,7 @@ function create_card(){
 function create_modal(){
   let modal_shim = document.createElement('div');
 
-  modal_shim.innerHTML = '<div class="modal fade" id="desc_modal" tabindex="-1" role="dialog"> <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title" id="descm_title">Modal title</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center" id="descm_body"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary" id="descm_edit">Edit</button> </div> </div> </div> </div>';
+  modal_shim.innerHTML = '<div class="modal fade" id="desc_modal" tabindex="-1" role="dialog"> <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content"> <div class="modal-header"> <h6 class="modal-title" id="descm_title">Modal title</h6> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <div class="d-flex justify-content-center" id="descm_body"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary" id="descm_edit">Edit</button> </div> </div> </div> </div>';
 
   let modal = modal_shim.firstChild;
 
