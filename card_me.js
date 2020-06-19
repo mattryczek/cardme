@@ -188,16 +188,27 @@ function badge_type(ticket){
     return badge;
 }
 
-function copy_ticket_num(badge){
+function copy_ticket_num(badge) {
   let copyText = document.createElement('input');
+  let num = badge.textContent;
+
   document.body.appendChild(copyText);
-  copyText.value = badge.textContent;
+  copyText.value = num;
 
   copyText.select();
   copyText.setSelectionRange(0, 99999);
   document.execCommand("copy");
 
   document.body.lastChild.remove();
+
+  badge.textContent = "Copied!";
+
+  badge.setAttribute("onmouseleave", "restore_badge(this," + num + ")");
+}
+
+async function restore_badge(badge, ticket_num) {
+  badge.textContent = ticket_num;
+  badge.removeAttribute("onmouseleave");
 }
 
 function create_banner(text, type){
