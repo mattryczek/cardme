@@ -161,7 +161,8 @@ function badge_type(ticket){
         LOW: 'badge-success',
         MEDIUM: 'badge-warning',
         HIGH: 'badge-danger',
-        CRITICAL: 'badge-dark'
+        CRITICAL: 'badge-dark',
+        EXTENDED: 'badge-primary'
     }
 
     let priority = get_priority(ticket);
@@ -176,6 +177,9 @@ function badge_type(ticket){
             break;
         case "I-CRITICAL":
             badge = badges.CRITICAL;
+            break;
+        case "EXTENDED":
+            badge = badges.EXTENDED;
             break;
     }
 
