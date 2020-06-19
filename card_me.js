@@ -190,11 +190,14 @@ function badge_type(ticket){
 
 function copy_ticket_num(badge){
   let copyText = document.createElement('input');
+  document.body.appendChild(copyText);
   copyText.value = badge.textContent;
 
   copyText.select();
   copyText.setSelectionRange(0, 99999);
   document.execCommand("copy");
+
+  document.body.lastChild.remove();
 }
 
 function create_banner(text, type){
