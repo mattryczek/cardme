@@ -20,6 +20,10 @@ async function clean_up(){
   document.getElementById("footer").remove();
   document.getElementById("PopUpAlert").remove();
 
+  document.body.removeAttribute("onkeypress");
+  document.body.removeAttribute("class");
+  document.body.removeAttribute("id");
+
 }
 
 function inject_bootstrap(){
@@ -276,17 +280,17 @@ function create_card(){
     badge_div.appendChild(dept_badge);
 
     let edit_button = document.createElement('button');
-    edit_button.classList = "btn btn-outline-primary mr-2";
+    edit_button.classList = "btn btn-sm btn-outline-primary mr-2";
     edit_button.textContent = "Edit";
     edit_button.setAttribute("onclick", "goToEdit(" + ticket_num + ", 1);");
 
     let modal_button = document.createElement('button');
-    modal_button.classList = "btn btn-outline-secondary mr-2";
+    modal_button.classList = "btn btn-sm btn-outline-secondary mr-2";
     modal_button.textContent = "Full Description";
     modal_button.setAttribute("onclick", "get_full_desc(this, "+ ticket_num + ")");
 
     let details_button = document.createElement('button');
-    details_button.classList = "btn btn-outline-secondary mr-2";
+    details_button.classList = "btn btn-sm btn-outline-secondary mr-2";
     details_button.textContent = "Details";
     details_button.setAttribute("onclick", "goToDetails(" + ticket_num + ", 1);");
 
