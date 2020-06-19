@@ -68,7 +68,7 @@ function transform(){
     if(document.getElementsByClassName("x-grid-empty").length == 1){
         no_tickets();
     } else {
-        document.getElementById("Main").appendChild(create_container(tickets.length));
+        document.getElementById("Main").appendChild(create_container(tickets.length, 3));
     }
 
     create_modal();
@@ -317,20 +317,20 @@ function create_modal(){
   document.body.appendChild(modal);
 }
 
-function create_container(size){
+function create_container(size, columns){
     let fragment = document.createDocumentFragment();
 
     let container = document.createElement('div');
     container.classList = "container my-4";
     container.id = "cards";
 
-    let spare = size % 3;
-    let rows = (size - spare) /  3;
+    let spare = size % columns;
+    let rows = (size - spare) /  columns;
 
     for(let i = 0; i < rows; i++){
         let row = create_row();
 
-        for(let j = 0; j < 3; j++){
+        for(let j = 0; j < columns; j++){
             row.appendChild(create_card());
         }
 
