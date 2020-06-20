@@ -79,6 +79,7 @@ function transform(){
     create_modal();
     create_navbar();
     create_offset();
+    fill_navbar();
 }
 
 function no_tickets(){
@@ -109,9 +110,8 @@ function lowlight(card){
     card.classList.add("shadow-sm");
 }
 
-function go_home(){
-  let url = "/MRcgi/MRhomepage.pl?LASTID=" + document.quickSearch.LASTID.value + "&WRITECACHE=1&USER=" + document.quickSearch.USER.value + "&MRP=" + document.quickSearch.MRP.value + "&PROJECTID=" + document.quickSearch.PROJECTID.value;
-  location.replace(url);
+function fill_navbar(){
+  document.getElementById("go_home").href = document.getElementById("tb_home").href;
 }
 
 async function get_full_desc(button, ticket_num){
@@ -352,7 +352,7 @@ function create_modal(){
 function create_navbar(){
   let navbar_shim = document.createElement('div');
 
-  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" onclick="go_home()">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5"> <select class="custom-select" id="inputGroupSelect01"> <option selected>Workspace</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
+  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5"> <select class="custom-select" id="inputGroupSelect01"> <option selected>Workspace</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
 
   let navbar = navbar_shim.firstChild;
 
