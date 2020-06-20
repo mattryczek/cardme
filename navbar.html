@@ -12,18 +12,19 @@
 <body>
 
   <div class="fixed-top" id="navwhole">
-    <div class="collapse" id="hidden_opts" >
+    <div class="collapse" id="hidden_opts">
       <div class="bg-light p-4">
         <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span>
       </div>
     </div>
-    <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span          class="navbar-toggler-icon"></span> </button>
+    <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navnav">
-        <div class="navbar-nav"> <a class="nav-item nav-link" href="#">Home</a> <a class="nav-item nav-link active" href="#">New Issue</a>
-          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">My Reports</a> <a class="dropdown-item" href="#">New Report</a> <a class="dropdown-item" href="#">Metrics</a> <a class="dropdown-item" href="#">Cross Workspace</a> <a
-                class="dropdown-item" href="#">Knowledge Base</a>
-              <div class="dropdown-divider"></div> <a class="dropdown-item" href="#">Personal Flashboard</a>
+        <div class="navbar-nav"> <a class="nav-item nav-link" onclick="go_home()">Home</a>
+          <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a>
+            <div class="dropdown-menu" id="reports_drop">
             </div>
           </li>
         </div>
