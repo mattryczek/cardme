@@ -73,10 +73,11 @@ function transform(){
     if(document.getElementsByClassName("x-grid-empty").length == 1){
         no_tickets();
     } else {
-        document.getElementById("Main").appendChild(create_container(tickets.length, 3));
+        document.body.prepend(create_container(tickets.length, 3));
     }
 
     create_modal();
+    create_navbar();
 }
 
 function no_tickets(){
@@ -342,11 +343,23 @@ function create_modal(){
   document.body.appendChild(modal);
 }
 
+function create_navbar(){
+  let navbar_shim = document.createElement('div');
+
+  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts" > <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" href="#">Home</a> <a class="nav-item nav-link active" href="#">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu"> <a class="dropdown-item" href="#">My Reports</a> <a class="dropdown-item" href="#">New Report</a> <a class="dropdown-item" href="#">Metrics</a> <a class="dropdown-item" href="#">Cross Workspace</a> <a class="dropdown-item" href="#">Knowledge Base</a> <div class="dropdown-divider"></div> <a class="dropdown-item" href="#">Personal Flashboard</a> </div> </li> </div> <div class="col-5"> <select class="custom-select" id="inputGroupSelect01"> <option selected>Workspace</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
+
+  let navbar = navbar_shim.firstChild;
+
+  document.body.prepend(navbar);
+
+  document.getElementById("cards").style.marginTop = document.getElementById("justbar").offsetHeight;
+}
+
 function create_container(size, columns){
     let fragment = document.createDocumentFragment();
 
     let container = document.createElement('div');
-    container.classList = "container my-4";
+    container.classList = "container mb-4";
     container.id = "cards";
 
     let spare = size % columns;
