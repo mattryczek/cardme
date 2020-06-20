@@ -112,6 +112,19 @@ function lowlight(card){
 
 function fill_navbar(){
   document.getElementById("go_home").href = document.getElementById("tb_home").href;
+
+  let reports = document.getElementById("tb_kb_report").parentElement.parentElement.children;
+  let report_menu = document.getElementById("reports_drop");
+  let report;
+
+  while(reports.length != 0){
+    report = reports[0].firstChild
+    report.classList = "dropdown-item";
+
+    report_menu.appendChild(report);
+    reports[0].remove();
+  }
+
 }
 
 async function get_full_desc(button, ticket_num){
