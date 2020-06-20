@@ -125,6 +125,14 @@ function fill_navbar(){
     reports[0].remove();
   }
 
+  let searches = document.getElementsByName("dropDown")[0];
+  searches.lastChild.removeAttribute("onchange");
+  searches.lastChild.removeAttribute("style");
+  searches.lastChild.classList = "custom-select";
+  searches.lastChild.setAttribute("onchange", "if(this.selectedIndex != -1) processDisplayDropdown();")
+
+  document.getElementById("searches_div").appendChild(searches);
+
 }
 
 async function get_full_desc(button, ticket_num){
@@ -365,7 +373,7 @@ function create_modal(){
 function create_navbar(){
   let navbar_shim = document.createElement('div');
 
-  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5"> <select class="custom-select" id="inputGroupSelect01"> <option selected>Workspace</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
+  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5" id="searches_div"> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
 
   let navbar = navbar_shim.firstChild;
 
