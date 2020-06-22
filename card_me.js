@@ -78,8 +78,8 @@ function transform(){
 
     create_modal();
     create_navbar();
-    create_offset();
     fill_navbar();
+    setTimeout("create_offset()", 50);
 }
 
 function no_tickets(){
@@ -385,7 +385,7 @@ function create_offset(){
 
   let offset = bar_height + (0.25 * bar_height);
 
-  document.getElementById("cards").style.marginTop = offset + "px";
+  document.body.style.paddingTop = offset + "px";
 }
 
 function create_container(size, columns){
