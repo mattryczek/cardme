@@ -28,17 +28,19 @@
             </div>
           </li>
         </div>
-        <div class="col-5" id="searches_div"> 
+        <div class="col-5" id="searches_div">
         </div>
+        <button class="btn btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button>
+        <span class=" ml-1 badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span>
       </div>
       <form class="form-inline my-2 mr-2">
         <div class="input-group"> <input type="text" class="form-control" placeholder="Search...">
           <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button
               class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div>
+            <div class="dropdown-menu"> <a class="dropdown-item">Title</a> <a class="dropdown-item active">Keyword</a> </div>
           </div>
         </div>
-      </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button>
+      </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> 🛠 </button>
     </nav>
   </div>
 

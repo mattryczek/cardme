@@ -34,28 +34,7 @@ function inject_bootstrap(){
     link.rel = "stylesheet";
     link.href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
     link.crossorigin="anonymous";
-
     document.head.appendChild(link);
-
-    let jquery = document.createElement("script");
-
-    jquery.type = 'text/javascript';
-    jquery.async = true;
-    jquery.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
-    jquery.onload = function() {
-      //jQuery needs to load first; only load bootjs once jQuery is done.
-      let bootjs = document.createElement("script");
-
-      bootjs.type = 'text/javascript';
-      bootjs.async = false;
-      bootjs.src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
-      bootjs.crossorigin="anonymous";
-
-      document.head.appendChild(bootjs);
-    }
-    jquery.crossorigin="anonymous";
-
-    document.head.appendChild(jquery);
 
     let popper = document.createElement("script");
 
@@ -63,6 +42,27 @@ function inject_bootstrap(){
     popper.async = true;
     popper.src = "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js";
     popper.crossorigin="anonymous";
+    popper.onload = function() {
+      //Load popper.js first
+      let jquery = document.createElement("script");
+
+      jquery.type = 'text/javascript';
+      jquery.async = true;
+      jquery.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+      jquery.onload = function() {
+        //load jQuery before bootstrap js
+        let bootjs = document.createElement("script");
+
+        bootjs.type = 'text/javascript';
+        bootjs.async = false;
+        bootjs.src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
+        bootjs.crossorigin="anonymous";
+        document.head.appendChild(bootjs);
+      }
+
+      jquery.crossorigin="anonymous";
+      document.head.appendChild(jquery);
+    }
 
     document.head.appendChild(popper);
 }
@@ -80,6 +80,8 @@ function transform(){
     create_navbar();
     fill_navbar();
     setTimeout("create_offset()", 50);
+    setTimeout("$('[data-toggle=\"tooltip\"]').tooltip()", 500);
+
 }
 
 function no_tickets(){
@@ -131,7 +133,12 @@ function fill_navbar(){
   searches.lastChild.classList = "custom-select";
   searches.lastChild.setAttribute("onchange", "if(this.selectedIndex != -1) processDisplayDropdown();")
 
-  document.getElementById("searches_div").appendChild(searches);
+  document.getElementById("searches_div").prepend(searches);
+
+  let loaded = document.getElementById("TableActions").firstElementChild.children[0].textContent.split(' ')[2];
+  let total = document.getElementById("TableActions").firstElementChild.children[1].textContent.split(' ')[2];
+
+  document.getElementById("count_badge").textContent = loaded + ' / ' + total;
 
 }
 
@@ -373,7 +380,7 @@ function create_modal(){
 function create_navbar(){
   let navbar_shim = document.createElement('div');
 
-  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5" id="searches_div"> </div> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item" href="#">Title</a> <a class="dropdown-item active" href="#">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> Settings 🛠 </button> </nav> </div>';
+  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5" id="searches_div"> </div> <button class="btn btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button> <span class=" ml-1 badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item">Title</a> <a class="dropdown-item active">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> 🛠 </button> </nav> </div>';
 
   let navbar = navbar_shim.firstChild;
 
