@@ -78,8 +78,8 @@ function transform(){
 
     create_modal();
     create_navbar();
-    fill_navbar();
-    setTimeout("create_offset()", 50);
+    init_navbar();
+    setTimeout("create_offset()", 150);
     setTimeout("$('[data-toggle=\"tooltip\"]').tooltip()", 500);
 
 }
@@ -112,7 +112,7 @@ function lowlight(card){
     card.classList.add("shadow-sm");
 }
 
-function fill_navbar(){
+function init_navbar(){
   document.getElementById("go_home").href = document.getElementById("tb_home").href;
 
   let reports = document.getElementById("tb_kb_report").parentElement.parentElement.children;
@@ -140,6 +140,18 @@ function fill_navbar(){
 
   document.getElementById("count_badge").textContent = loaded + ' / ' + total;
 
+  const searchby = document.quickSearch.WSEARCH.value;
+  const indicate = document.getElementById("query_drop");
+
+  if (searchby == "KEYWORD"){
+    indicate.children[1].classList.add("active");
+    indicate.children[0].classList.remove("active");
+  } else {
+    indicate.children[0].classList.add("active");
+    indicate.children[1].classList.remove("active");
+  }
+
+  document.getElementById("search_input").value = document.quickSearch.SEARCHS.value;
 }
 
 async function get_full_desc(button, ticket_num){
@@ -380,7 +392,7 @@ function create_modal(){
 function create_navbar(){
   let navbar_shim = document.createElement('div');
 
-  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5" id="searches_div"> </div> <button class="btn btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button> <span class=" ml-1 badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button> <div class="dropdown-menu"> <a class="dropdown-item">Title</a> <a class="dropdown-item active">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> 🛠 </button> </nav> </div>';
+  navbar_shim.innerHTML = '<div class="fixed-top" id="navwhole"> <div class="collapse" id="hidden_opts"> <div class="bg-light p-4"> <h5 class="h4">Welcome, $User!</h5> <span class="text-muted">Toggleable via the navbar brand.</span> </div> </div> <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navnav"> <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a> <div class="dropdown-menu" id="reports_drop"> </div> </li> </div> <div class="col-5" id="searches_div"> </div> <button class="btn btn-sm btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button> <span class=" ml-1 badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span> </div> <form class="form-inline my-2 mr-2"> <div class="input-group"> <input type="text" class="form-control" id="search_input" placeholder="Search..."> <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button" onclick="goto_ticket()">Ticket</button> <button class="btn btn-outline-secondary" type="button" onclick="do_search()" >Query</button> <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" data-toggle="dropdown"></button> <div class="dropdown-menu" id="query_drop"> <a class="dropdown-item" onclick="update_search(this)">Title</a> <a class="dropdown-item" onclick="update_search(this)">Keyword</a> </div> </div> </div> </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> 🛠 </button> </nav> </div>';
 
   let navbar = navbar_shim.firstChild;
 
@@ -430,4 +442,29 @@ function create_container(size, columns){
     fragment.appendChild(container);
 
     return fragment;
+}
+
+function goto_ticket(){
+  goToDetails(document.getElementById("search_input").value , 1);
+}
+
+function do_search(){
+  document.quickSearch.SEARCHS.value = document.getElementById("search_input").value;
+
+  document.quickSearch.submit();
+}
+
+function update_search(option){
+  let searchby = option.textContent.toUpperCase();
+  document.quickSearch.WSEARCH.value = searchby;
+
+  const indicate = document.getElementById("query_drop");
+
+  if (searchby == "KEYWORD"){
+    indicate.children[1].classList.add("active");
+    indicate.children[0].classList.remove("active");
+  } else {
+    indicate.children[0].classList.add("active");
+    indicate.children[1].classList.remove("active");
+  }
 }

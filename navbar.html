@@ -20,24 +20,21 @@
     <nav class="border-top border-bottom border-secondary navbar navbar-expand-md navbar-light bg-light" id="justbar"> <a class="navbar-brand" href="#"><strong>ITSM</strong></a> <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navnav"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navnav">
-        <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a>
-          <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a>
-            <div class="dropdown-menu" id="reports_drop">
-            </div>
+        <div class="navbar-nav"> <a class="nav-item nav-link" id="go_home">Home</a> <a class="nav-item nav-link active" onclick="goToCreate(1);">New Issue</a>
+          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="reports" role="button" data-toggle="dropdown">Reports</a>
+            <div class="dropdown-menu" id="reports_drop"> </div>
           </li>
         </div>
-        <div class="col-5" id="searches_div">
-        </div>
-        <button class="btn btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button>
-        <span class=" ml-1 badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span>
+        <div class="col-5" id="searches_div"> </div> <button class="btn btn-sm btn-outline-secondary" type="button" onclick="processDisplayDropdown(true)"> Refresh </button> <span class=" ml-1 badge badge-secondary" data-toggle="tooltip"
+          data-placement="bottom" title="Tickets Loaded / Total" id="count_badge">$count</span>
       </div>
       <form class="form-inline my-2 mr-2">
-        <div class="input-group"> <input type="text" class="form-control" placeholder="Search...">
-          <div class="input-group-append"> <button class="btn btn-outline-secondary" type="button">Ticket</button> <button class="btn btn-outline-secondary" type="button">Query</button> <button
-              class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" id="query_drop" data-toggle="dropdown"></button>
-            <div class="dropdown-menu"> <a class="dropdown-item">Title</a> <a class="dropdown-item active">Keyword</a> </div>
+        <div class="input-group"> <input type="text" class="form-control" id="search_input" placeholder="Search...">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="goto_ticket()">Ticket</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="do_search()" >Query</button> <button
+              class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" type="button" data-toggle="dropdown"></button>
+            <div class="dropdown-menu" id="query_drop"> <a class="dropdown-item" onclick="update_search(this)">Title</a> <a class="dropdown-item" onclick="update_search(this)">Keyword</a> </div>
           </div>
         </div>
       </form> <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#hidden_opts"> 🛠 </button>
