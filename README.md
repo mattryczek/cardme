@@ -8,8 +8,10 @@ Cardme is a JS suite you can drop in the console on any FP ticket list to turn i
 
 > Preferences > Homepage > Title Column Options
 
-1. Copy the entirety of `card_me.js`
-2. Go to any FP ticket view and open `console`
+within your FP Settings
+
+1. Copy the entirety of `card_me.js` to your clipboard
+2. Go to any FP ticket main page and open your `console`
 3. Paste and hit enter, cards should appear
 
 >As this is essentially a tech demo until integration with the FP extension, reloading will wipe all changes.
